@@ -1,2 +1,20 @@
 # spring-native
-Repository to reproduce error on spring native
+Repository to reproduce error on spring native :
+
+[ERROR] java.lang.IllegalStateException: Problem creating proxy with configuration: org.springframework.aop.framework.ProxyConfiguration@4916742f
+[ERROR] [org.springframework.aop.framework.ProxyGenerator.getProxyBytes(ProxyGenerator.java:94), org.springframework.aot.nativex.ConfigurationContributor.generateBuildTimeClassProxy(ConfigurationContributor.java:182), org.springframework.aot.nativex.ConfigurationContributor.generateBuildTimeClassProxies(ConfigurationContributor.java:160), org.springframework.aot.nativex.ConfigurationContributor.processBuildTimeClassProxyRequests(ConfigurationContributor.java:137), org.springframework.aot.nativex.ConfigurationContributor.contribute(ConfigurationContributor.java:72), org.springframework.aot.BootstrapCodeGenerator.generate(BootstrapCodeGenerator.java:77), org.springframework.aot.maven.GenerateMojo.execute(GenerateMojo.java:65), org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137), org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210), org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156), org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148), org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117), org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81), org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56), org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128), org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305), org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192), org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105), org.apache.maven.cli.MavenCli.execute(MavenCli.java:957), org.apache.maven.cli.MavenCli.doMain(MavenCli.java:289), org.apache.maven.cli.MavenCli.main(MavenCli.java:193), java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method), java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78), java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43), java.base/java.lang.reflect.Method.invoke(Method.java:567), org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282), org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225), org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406), org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347), org.codehaus.classworlds.Launcher.main(Launcher.java:47)]
+java.lang.IllegalArgumentException: Cannot subclass primitive, array or final types: class java.lang.String
+at net.bytebuddy.ByteBuddy.subclass(ByteBuddy.java:406)
+at net.bytebuddy.ByteBuddy.subclass(ByteBuddy.java:379)
+at net.bytebuddy.ByteBuddy.subclass(ByteBuddy.java:276)
+at org.springframework.aop.framework.ProxyGenerator.getProxyBytes(ProxyGenerator.java:80)
+at org.springframework.aot.nativex.ConfigurationContributor.generateBuildTimeClassProxy(ConfigurationContributor.java:182)
+at org.springframework.aot.nativex.ConfigurationContributor.generateBuildTimeClassProxies(ConfigurationContributor.java:160)
+at org.springframework.aot.nativex.ConfigurationContributor.processBuildTimeClassProxyRequests(ConfigurationContributor.java:137)
+at org.springframework.aot.nativex.ConfigurationContributor.contribute(ConfigurationContributor.java:72)
+at org.springframework.aot.BootstrapCodeGenerator.generate(BootstrapCodeGenerator.java:77)
+
+Issue disappear if we remove one of the following dependencies :
+
+- springdoc-openapi-ui
+- spring-boot-starter-hateoas
